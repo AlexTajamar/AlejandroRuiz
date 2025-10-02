@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="js/jquery-3.7.1.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#but").click(function () {
+        var val1 = parseInt($("#n1").val());
+        var val2 = parseInt($("#n2").val());
+        var val3 = parseInt($("#n3").val());
+        var mayor, menor, intermedio;
+
+        if (val1 >= val2 && val1 >= val3) {
+          mayor = val1;
+        } else if (val2 >= val1 && val2 >= val3) {
+          mayor = val2;
+        } else mayor = val3;
+        if (val1 <= val2 && val1 <= val3) {
+          menor = val1;
+        } else if (val2 <= val1 && val2 <= val3) {
+          menor = val2;
+        } else {
+          menor = val3;
+        }
+      });
+      var suma = val1 + val2 + val3;
+      intermedio = suma - mayor - menor;
+      $("#res").text(
+        "Mayor= " + mayor + " Menor= " + menor + " Intermedio=" + intermedio
+      );
+    });
+  </script>
+  <body>
+    <input type="text" id="n1" />
+    <input type="text" id="n2" />
+    <input type="text" id="n3" />
+    <button id="but">resultado</button>
+    <h1 id="res"></h1>
+  </body>
+</html>
