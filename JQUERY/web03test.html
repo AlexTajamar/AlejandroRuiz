@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="js/jquery-3.7.1.js"></script>
+<script>
+    $(document).ready(function(){
+    $("#botontabla").click(function(){
+        var num =parseInt($("#cajatabla").val())
+        var html=""
+        for(var i =1 ; i<=10;i++){
+            var operacion=num*i;
+            var texto=num+" * "+i
+            html+="<tr>"
+            html+="<td> "+texto+ "</td>"
+            html+="<td> "+operacion+ "</td>"
+            html+="</tr>"
+
+                
+        }
+        $("#tabla").html(html)
+    })
+     $("#but").click(function(){
+        var num1= $("#1").val() 
+        var num2= $("#2").val() 
+        let suma=parseInt(num1)+parseInt(num2)
+    
+        $("#res").text(suma)
+       })
+       
+    })
+</script>
+<body>
+ <h1>Tabla multiplicar</h1>
+<input type="text" id="cajatabla">
+    <button id="botontabla">si</button>
+    <table id="tabla"> 
+    </table>
+    <hr>
+ <h1>Tabla multiplicar</h1>
+    <input type="number"id="1"/>
+    <input type="number"id="2"/>
+    <button id="but">Resultado</button>
+    <h2 id="res"></h2>
+
+</body>
+
+</html>

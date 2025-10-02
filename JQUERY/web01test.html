@@ -5,8 +5,42 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<script src="/js/jquery-3.7.1.js"></script>
+<style>
+    #1{
+        color:aqua;
+    }
+</style>
+<script src="js/jquery-3.7.1.js"></script>
+<script>
+    $(document).ready(function(){
+        // alert("Hola mundo");
+         $("h2").hide();
+         $("#1").hide();
+         //Podemos asociar acciones a los objetos//
+         $("p").click(function(){
+            $("#1").show()})
+        //Existe palabra clave this
+        //Accesdemos al objeto que ha hecho la llamada
+        $(this).hide()
+        //se pueden cambiar estilos
+        $(".rojo").click(function(){
+            $(this).hide        })
+        $("#foto").mouseover(function()
+    {
+        $(this).attr("src","img/image.png")
+    })
+     $("#foto").mouseleave(function()
+    {
+        $(this).attr("src","img/descargar (1).webp")
+    })
+
+    })
+</script> 
+
 <body>
-    
+    <div><h2>Hola</h2></div>
+    <button id="1">fffff</button>
+    <p>púlsame</p>
+    <img src="img/descargar (1).webp" id="foto">
 </body>
 </html>
