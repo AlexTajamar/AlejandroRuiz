@@ -26,12 +26,13 @@
         } else {
           menor = val3;
         }
+
+        var suma = val1 + val2 + val3;
+        intermedio = suma - mayor - menor;
+        $("#res").text(
+          "Mayor= " + mayor + " Menor= " + menor + " Intermedio=" + intermedio
+        );
       });
-      var suma = val1 + val2 + val3;
-      intermedio = suma - mayor - menor;
-      $("#res").text(
-        "Mayor= " + mayor + " Menor= " + menor + " Intermedio=" + intermedio
-      );
     });
   </script>
   <body>
