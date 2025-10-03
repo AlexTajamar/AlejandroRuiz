@@ -1,0 +1,35 @@
+<!DOCTYPE html> Suma
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="js/jquery-3.7.1.js"></script>
+  <script>
+    function generarNumeroRandom(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+    $(document).ready(function () {
+      var numeroBotones = generarNumeroRandom(1, 10);
+
+      for (var i = 0; i <= numeroBotones; i++) {
+        var numeroAleatorio = parseInt(generarNumeroRandom(1, 100));
+        var boton = $("<button>", { text: i, value: numeroAleatorio });
+
+        $("#container").append(boton);
+        boton.click(function () {
+          var valor = parseInt($(this).val());
+          var suma = parseInt($("suma").text());
+          suma += valor;
+          $("#suma").text(suma);
+        });
+      }
+    });
+  </script>
+  <body>
+    <h1>Botones Suma</h1>
+    <div id="container"></div>
+    <div id="suma"></div>
+  </body>
+</html>
