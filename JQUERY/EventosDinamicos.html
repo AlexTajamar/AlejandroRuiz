@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="js/jquery-3.7.1.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#button").click(function () {
+        var texto = $("#caja").val();
+        //CREMOS UN PARRAFO CON UN EVENTO / LISTENER
+        var parrafo = $("<p>");
+        parrafo.text(texto);
+        parrafo.css("color", "blue");
+
+        // otra forma
+        //crear el objeto e inicializar sus atribtos
+        var parrafo2 = $("<p>", { text: texto, style: "color:blue" });
+        //se añade al div
+        $("#container").append(parrafo);
+
+        //PODEMOS INCLUIR EVENTOS
+        parrafo.click(function () {
+          $(this).css("color", "fuchsia");
+          $(this).text("pulsadoo");
+        });
+      });
+    });
+  </script>
+  <body>
+    <h1>
+      Controles dinámicos
+      <label> Introduzca texto </label>
+      <input type="text" id="caja" />
+      <button id="button">Generar control</button>
+      <hr />
+      <div id="container"></div>
+    </h1>
+  </body>
+</html>
