@@ -32,6 +32,7 @@
                     function (data) {
                       console.log("Leyendo Id");
                       var nombre = $(this).find("Nombre").text();
+                      var imagen;
                       //   var pagw = x$(this).find("PaginaWeb").text();
                     }
                   );
@@ -40,6 +41,9 @@
                       "<span>" +
                       "Nombre: " +
                       nombre +
+                      "<img src='" +
+                      imagen +
+                      "'style='width:150px' 'heigth: 150px''>" +
                       //   "PagW: " +
                       //   pagw +
                       "</span>"
