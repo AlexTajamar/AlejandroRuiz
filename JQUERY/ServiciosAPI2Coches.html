@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Servicio API coches</h1>
+    <label for="">seleccione un coche</label>
+    <select id="selectcoche">
+      <option value="1">Porche 911</option>
+      <option value="2">Pontiac FireBind</option>
+    </select>
+    <hr />
+    <label for="">seleccione un CLIENTE</label>
+
+    <select id="selectclientes">
+      <option value="1">Cliente 1</option>
+      <option value="2">Cliente 2</option>
+    </select>
+    <div id="contenedor"></div>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+      $(document).ready(function () {
+        $.get(
+          "https://apiclientesxml.azurewebsites.net/api/Clientes/GetClientesXML",
+          function (data) {
+            console.log("Leyendo Clientes");
+            $(data)
+              .find("CLIENTE")
+              .each(function () {
+                var idCliente = parseInt($(this).attr("IDCLIENTE"));
+                var optionClientes = $("<option>");
+                var nombreCliente = $(this).find("NOMBRE").text();
+
+                console.log("CON ID CLIENTE");
+                optionClientes.val(idCliente);
+                optionClientes.text(nombreCliente);
+                $("#selectclientes").append(optionClientes);
+              });
+          }
+        );
+
+        $("#selectclientes").change(function () {
+          var id = $(this).val(); // id del option que seleccionan
+
+          $.get(
+            "https://apiclientesxml.azurewebsites.net/api/Clientes/GetClientesXML",
+            function (data) {
+              var filtro = "CLIENTE[IDCLIENTE =" + id + "]"; // Busca por el id que encuentra del select
+              var nodo = $(data).find(filtro).first();
+              var nombre = nodo.find("NOMBRE").text();
+              var email = nodo.find("EMAIL").text();
+              var codigopostal = nodo.find("CODIGOPOSTAL").text();
+              $("#contenedor").html(
+                "<span>" +
+                  "nombre : " +
+                  nombre +
+                  "<br>" +
+                  " email : " +
+                  email +
+                  "<br>" +
+                  " CP : " +
+                  codigopostal +
+                  "</span>"
+              );
+            }
+          );
+        });
+        $.get(
+          "https://apiclientesxml.azurewebsites.net/api/Clientes/GetCochesXML",
+          function (data) {
+            console.log("Leyendo");
+            $(data)
+              .find("coche")
+              .each(function () {
+                var option = $("<option>");
+                var idcoche = $(this).attr("idcoche");
+                var marca = $(this).find("marca").text();
+                var modelo = $(this).find("modelo").text();
+                option.val(idcoche);
+                option.text(marca + "  " + modelo);
+                $("#selectcoche").append(option);
+              });
+          }
+        );
+        $("#selectcoche").change(function () {
+          var id = $(this).val(); // id del option
+
+          $.get(
+            "https://apiclientesxml.azurewebsites.net/api/Clientes/GetCochesXML",
+            function (data) {
+              var filtro = "coche[idcoche =" + id + "]";
+              var nodo = $(data).find(filtro).first();
+              var imagen = nodo.find("imagen").text();
+              console.log("imagen cargando");
+              $("#contenedor").html(
+                "<img src='" + imagen + "'style='width:150px' 'heigth: 150px''>"
+              );
+            }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

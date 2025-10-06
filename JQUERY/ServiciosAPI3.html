@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Clientes XML</h1>
+    <div id="contenedor"></div>
+    <div id="resultado"></div>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+      $(document).ready(function () {
+        $.get(
+          "https://apiclientesxml.azurewebsites.net/api/Clientes",
+          function (data) {
+            console.log("Cargando");
+            $(data)
+              .find("Cliente")
+              .each(function () {
+                var nombre = $(this).find("Nombre").text();
+                var idCliente = $(this).find("IdCliente").text();
+                var boton = $("<button>", { text: nombre, value: idCliente });
+                $("#contenedor").append(boton);
+
+                boton.click(function () {
+                  console.log(idCliente);
+                  $.get(
+                    "https://apiclientesxml.azurewebsites.net/api/Clientes/" +
+                      parseInt(idCliente),
+                    function (data) {
+                      console.log("Leyendo Id");
+                      var nombre = $(this).find("Nombre").text();
+                      //   var pagw = x$(this).find("PaginaWeb").text();
+                    }
+                  );
+                  $("#resultado").html(
+                    "<br>" +
+                      "<span>" +
+                      "Nombre: " +
+                      nombre +
+                      //   "PagW: " +
+                      //   pagw +
+                      "</span>"
+                  );
+                });
+              });
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
