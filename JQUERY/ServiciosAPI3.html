@@ -25,28 +25,26 @@
                 $("#contenedor").append(boton);
 
                 boton.click(function () {
-                  console.log(idCliente);
+                  var id = $(this).val();
                   $.get(
                     "https://apiclientesxml.azurewebsites.net/api/Clientes/" +
-                      parseInt(idCliente),
+                      parseInt(id),
                     function (data) {
                       console.log("Leyendo Id");
-                      var nombre = $(this).find("Nombre").text();
-                      var imagen;
-                      //   var pagw = x$(this).find("PaginaWeb").text();
+                      var nombre = $(data).find("nombre").text();
+                      var imagen = $(data).find("imagen").text();
+                      console.log(nombre);
+                      console.log(imagen);
+                      $("#resultado").html(
+                        "<br>" +
+                          "<span>Nombre: " +
+                          nombre +
+                          "</span><br>" +
+                          "<img src='" +
+                          imagen +
+                          "' style='width:200px; height:200px'>"
+                      );
                     }
-                  );
-                  $("#resultado").html(
-                    "<br>" +
-                      "<span>" +
-                      "Nombre: " +
-                      nombre +
-                      "<img src='" +
-                      imagen +
-                      "'style='width:150px' 'heigth: 150px''>" +
-                      //   "PagW: " +
-                      //   pagw +
-                      "</span>"
                   );
                 });
               });
