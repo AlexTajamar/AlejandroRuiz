@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="botonLoad">Púlsame</button>
+    <button id="botonLoadvarios">Púlsame Con varios Objetos</button>
+    <ul id="tareas"></ul>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#botonLoad").click(function () {
+          $.getJSON("documents/tareas.json", function (data) {
+            console.log("Leyendo JSON");
+            var html = "";
+            $.each(data, function (key, value) {
+              html += "<li> Key :" + key + " <br> Value: " + value + " </li>";
+            });
+            $("#tareas").html(html);
+          });
+        });
+        //SOLO CON UN OBJETO
+
+        $("#botonLoadvarios").click(function () {
+          $.getJSON("documents/clientes.json", function (data) {
+            console.log("Leyendo JSON");
+            var html = "";
+            $.each(data.clientes, function (indice, Objeto) {
+              //cuidado con el data.[OBJETO]
+              html +=
+                "<li> Indice :" +
+                indice +
+                " <br> Value: " +
+                Objeto.nombre +
+                " </li>";
+            });
+            $("#tareas").html(html);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

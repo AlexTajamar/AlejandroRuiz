@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>JUGADORES JSON</h1>
+    <label>Seleecione un jugador</label>
+    <select id="selectjugador"></select>
+    <div id="containerjugador"></div>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+      $(document).ready(function () {
+        $.getJSON("documents/jugadores.json", function (data) {
+          $.each(data.jugadores, function (index, player) {
+            var nombre = player.nombre;
+            var option = $("<option>", { text: nombre });
+            $("#selectjugador").append(option);
+          });
+        });
+
+        $("#selectjugador").change(function () {
+          var nombre = $("#selectjugador").val();
+          $.ajax({
+            type: "GET",
+            url: "documents/jugadores.json",
+            data: "data",
+            dataType: "json",
+            success: function (data) {
+              var html = "";
+              $.each(data.jugadores, function (index, jugador) {
+                var nombreJugador = jugador.nombre;
+                if (nombreJugador == nombre) {
+                  var posicion = jugador.posicion;
+                  var imagen = jugador.imagen;
+                  html += "<h1>" + nombreJugador + "</h1>";
+                  html += "<p>" + posicion + "</p>";
+                  html += "<img src='" + imagen + "'/>";
+                }
+                $("#containerjugador").html(html);
+              });
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
