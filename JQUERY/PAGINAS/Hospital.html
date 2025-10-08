@@ -265,53 +265,41 @@
     </nav>
     <main class="container">
       <div class="bg-body-tertiary p-5 rounded">
-        <h1>Create</h1>
-        <h2 id="mensaje"></h2>
-        <label for="">Id hospital</label>
-        <input type="number" id="idHospital" class="form-control" />
-        <label for="">nombre</label>
-        <input type="text" id="nombre" class="form-control />
-        <label for="">direccion</label>
-        <input type="text" id="direccion " class="form-control" />
-        <label for="">telefono</label>
-        <input type="text" id="telefono" class="form-control" />
-        <label for="">camas</label>
-        <input type="text" id="camas" class="form-control" />
-        <button id="botoninsertar" class="btn btn-info">INSERTAR</button>
+        <h1>Hospital details</h1>
+        <ul id="hospitaldetalles" class="list-group"></ul>
       </div>
     </main>
     <script src="js/bootstrap.bundle.js"></script>
     <script src="js/jquery-3.7.1.js"></script>
     <script>
-      let url =
-        "https://apicrudhospital.azurewebsites.net/webresources/hospitales/post";
+      let url = "https://apicrudhospital.azurewebsites.net/";
 
       $(document).ready(function () {
-        $("#botoninsertar").click(function () {
-          var id = parseInt($("#idHospital").val());
-          var nombre = $("#nombre").val();
-          var direccion = $("#direccion").val();
-          var telefono = $("#telefono").val();
-          var camas = parseInt($("#camas").val());
+        var params = new window.URLSearchParams(window.location.search);
+        var idHospital = params.get("idhospital");
+        console.log("Id hospital " + idHospital);
+        var request = "webresources/hospitales/" + idHospital;
 
-          var hospital = new Object();
-          hospital.idhospital = id;
-          hospital.nombre = nombre;
-          hospital.direccion = direccion;
-          hospital.telefono = telefono;
-          hospital.camas = camas;
-
-          var hospitalJSON = JSON.stringify(hospital);
-          console.log(hospitalJSON);
-          $.ajax({
-            url: url,
-            type: "POST",
-            contentType: "application/json",
-            data: hospitalJSON,
-            success: function () {
-              $("#mensaje").text("Hospital insertado");
-            },
-          });
+        $.ajax({
+          url: url + request,
+          type: "GET",
+          success: function (data) {
+            console.log("Leyend hospital");
+            var html = "";
+            html += "<li class='list-group'>";
+            html += data.nombre;
+            html += "</li>";
+            html += "<li class='list-group'>";
+            html += data.direccion;
+            html += "</li>";
+            html += "<li class='list-group'>";
+            html += data.telefono;
+            html += "</li>";
+            html += "<li class='list-group'>";
+            html += data.camas;
+            html += "</li>";
+            $("#hospitaldetalles").html(html);
+          },
         });
       });
     </script>
