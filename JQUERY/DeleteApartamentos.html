@@ -12,9 +12,13 @@
     <script src="js/jquery-3.7.1.js"></script>
     <script>
       $(document).ready(function () {
-        var url =
-          "https://apicruddepartamentospgs.azurewebsites.net//webresources/departamentos";
+        loadTabla();
+      });
 
+      var url =
+        "https://apicruddepartamentospgs.azurewebsites.net//webresources/departamentos";
+
+      function loadTabla() {
         $.getJSON(url, function (data) {
           $.each(data, function (index, departamentos) {
             console.log("dentro del servicio");
@@ -28,24 +32,21 @@
 
             boton.click(function () {
               let idboton = $(this).val();
-              //NECESITAMOS EL REQUEST PORQ PIDE LA ID PARA ELIMINAR
-
               let request = idboton;
 
               $.ajax({
-                url: url + "/" + idboton,
+                url: url + "/delete/" + request,
                 type: "DELETE",
-                //NO ENVIO NI RECIBO NADA (contentTyoe o data)
                 success: function () {
                   console.log("Dentro del Delete");
-
-                  //llamamos para pintar la tabla de nuevo
+                  loadTabla();
+                  // Aquí podrías volver a llamar a loadTabla para refrescar la lista
                 },
               });
             });
           });
         });
-      });
+      }
     </script>
   </body>
 </html>

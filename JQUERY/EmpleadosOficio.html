@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Empleados Oficios</title>
+  </head>
+  <body>
+    <h1>Empleados Oficios</h1>
+
+    <select id="selectoficio"></select>
+    <br />
+
+    <label>Incremento salarial</label>
+    <input type="text" id="inputincremento" />
+    <button id="botonincremento">Incrementar salario</button>
+
+    <table id="tablaempleados" border="1">
+      <thead>
+        <tr>
+          <th>Apellido</th>
+          <th>Oficio</th>
+          <th>Salario</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Cargar los oficios
+        $.getJSON(
+          "https://apiempleadosaction.azurewebsites.net/api/Empleados/GetOficios/oficios",
+          function (data) {
+            $.each(data, function (index, oficio) {
+              var option = $("<option>", {
+                text: oficio,
+                value: oficio, // el valor debe ser el nombre del oficio
+              });
+              $("#selectoficio").append(option);
+            });
+          }
+        );
+
+        // Al cambiar el oficio, cargar los empleados
+        $("#selectoficio").change(function () {
+          var oficioSeleccionado = $(this).val();
+          var url =
+            "https://apiempleadosaction.azurewebsites.net/api/Empleados/GetEmpleadosOficio/empleadosoficio/" +
+            oficioSeleccionado;
+          loadEmp(url);
+
+          function loadEmp(url) {
+            $.ajax({
+              type: "GET",
+              url: url,
+              dataType: "json",
+              success: function (data) {
+                var html = "";
+                $.each(data, function (index, empleado) {
+                  html += "<tr>";
+                  html += "<td>" + empleado.apellido + "</td>";
+                  html += "<td>" + empleado.oficio + "</td>";
+                  html += "<td>" + parseInt(empleado.salario) + "</td>";
+                  html += "</tr>";
+                });
+                $("#tablaempleados tbody").html(html);
+              },
+            });
+          }
+
+          $("#botonincremento").click(function () {
+            var Incrementar = $("#inputincremento").val(); //valor del input
+            console.log(Incrementar);
+
+            var oficio1 = $("#selectoficio").val();
+            $.ajax({
+              url:
+                "https://apiempleadosaction.azurewebsites.net/api/Empleados/IncrementarSalarioOficios/" +
+                oficio1 +
+                "/" +
+                Incrementar,
+              type: "PUT",
+              contentType: "json",
+              success: function () {
+                console.log("Dentro PUT");
+                loadEmp(
+                  "https://apiempleadosaction.azurewebsites.net/api/Empleados/GetEmpleadosOficio/empleadosoficio/" +
+                    oficio1
+                );
+              },
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

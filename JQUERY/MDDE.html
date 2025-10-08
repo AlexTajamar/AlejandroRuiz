@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>DELETE APARTAMENTOS</h1>
+    <ul id="listadepartamentos"></ul>
+    <br />
+    <table id="tablaempleados" border="1">
+      <thead>
+        <tr>
+          <th>Apellido</th>
+          <th>Oficio</th>
+          <th>Salario</th>
+          <th>Departamento</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+      $(document).ready(function () {
+        loadTabla();
+      });
+
+      var url =
+        "https://apicruddepartamentospgs.azurewebsites.net/webresources/departamentos";
+
+      function loadTabla() {
+        $.getJSON(url, function (data) {
+          $.each(data, function (index, departamentos) {
+            console.log("dentro del servicio");
+
+            var nombre = departamentos.nombre;
+            var numero = departamentos.numero;
+            var localidad = departamentos.localidad;
+
+            var lista = $("<li>", {
+              text: nombre + " (" + localidad + ")",
+              value: numero,
+            });
+
+            // Botón para ver empleados (corrigiendo variables incorrectas)
+            var boton = $("<button>", {
+              text: "Ver Empleados",
+              value: numero,
+            });
+
+            lista.append(boton);
+            $("#listadepartamentos").append(lista);
+
+            // Evento click del botón
+            boton.click(function () {
+              console.log("Dentro del boton");
+              let numeroemp = $(this).val(); // Este es el número del departamento
+              var urlemp =
+                "https://apiempleadosspgs.azurewebsites.net/api/Empleados";
+
+              $.ajax({
+                type: "GET",
+                url: urlemp,
+                dataType: "json",
+                success: function (data) {
+                  var html = "";
+                  console.log("Empleados del departamento " + numeroemp);
+                  $.each(data, function (index, departamento) {
+                    var apellido = departamento.apellido;
+                    var oficio = departamento.oficio;
+                    var salario = departamento.salario;
+                    var departamentos = departamento.departamento;
+                    console.log(departamentos);
+
+                    if (departamentos == numeroemp) {
+                      html += "<tr>";
+                      html += "<td>" + apellido + "</td>";
+                      html += "<td>" + oficio + "</td>";
+                      html += "<td>" + parseInt(salario) + "</td>";
+                      html += "<td>" + parseInt(departamentos) + "</td>";
+                      html += "</tr>";
+                    }
+                  });
+                  $("#tablaempleados tbody").html(html);
+                },
+              });
+            });
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
