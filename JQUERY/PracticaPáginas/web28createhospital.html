@@ -10,40 +10,8 @@
     />
     <meta name="generator" content="Astro v5.13.2" />
     <title>Fixed top navbar example · Bootstrap v5.3</title>
-    <link
-      rel="canonical"
-      href="https://getbootstrap.com/docs/5.3/examples/navbar-fixed/"
-    />
     <script src="js/color-modes.js"></script>
-    <link
-      href="css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="/docs/5.3/assets/img/favicons/apple-touch-icon.png"
-      sizes="180x180"
-    />
-    <link
-      rel="icon"
-      href="/docs/5.3/assets/img/favicons/favicon-32x32.png"
-      sizes="32x32"
-      type="image/png"
-    />
-    <link
-      rel="icon"
-      href="/docs/5.3/assets/img/favicons/favicon-16x16.png"
-      sizes="16x16"
-      type="image/png"
-    />
-    <link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json" />
-    <link
-      rel="mask-icon"
-      href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg"
-      color="#712cf9"
-    />
-    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
     <meta name="theme-color" content="#712cf9" />
     <link href="css/navbar-fixed.css" rel="stylesheet" />
     <style>
@@ -54,11 +22,13 @@
         -moz-user-select: none;
         user-select: none;
       }
+
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
       }
+
       .b-example-divider {
         width: 100%;
         height: 3rem;
@@ -68,21 +38,25 @@
         box-shadow: inset 0 0.5em 1.5em #0000001a,
           inset 0 0.125em 0.5em #00000026;
       }
+
       .b-example-vr {
         flex-shrink: 0;
         width: 1.5rem;
         height: 100vh;
       }
+
       .bi {
         vertical-align: -0.125em;
         fill: currentColor;
       }
+
       .nav-scroller {
         position: relative;
         z-index: 2;
         height: 2.75rem;
         overflow-y: hidden;
       }
+
       .nav-scroller .nav {
         display: flex;
         flex-wrap: nowrap;
@@ -93,6 +67,7 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+
       .btn-bd-primary {
         --bd-violet-bg: #712cf9;
         --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
@@ -108,18 +83,22 @@
         --bs-btn-active-bg: #5a23c8;
         --bs-btn-active-border-color: #5a23c8;
       }
+
       .bd-mode-toggle {
         z-index: 1500;
       }
+
       .bd-mode-toggle .bi {
         width: 1em;
         height: 1em;
       }
+
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
     </style>
   </head>
+
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
@@ -218,7 +197,7 @@
     </div>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">CRUD Hospital</a>
+        <a class="navbar-brand" href="#"> CRUD Hospitales </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -233,15 +212,18 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="Home.html"
-                >Home</a
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="web28homehospital.html"
               >
+                Home
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Insert.html">Insertar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              <a class="nav-link" href="web28createhospital.html">
+                New hospital
+              </a>
             </li>
           </ul>
           <form class="d-flex" role="search">
@@ -260,47 +242,55 @@
     </nav>
     <main class="container">
       <div class="bg-body-tertiary p-5 rounded">
-        <h1>Home</h1>
-        <table id="tablahospitales" class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Dirección</th>
-              <th>Details</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <h2 id="mensaje"></h2>
+        <h1>Create</h1>
+        <label>Id Hospital</label>
+        <input type="text" id="cajaid" class="form-control" /><br />
+        <label>Nombre</label>
+        <input type="text" id="cajanombre" class="form-control" /><br />
+        <label>Dirección</label>
+        <input type="text" id="cajadireccion" class="form-control" /><br />
+        <label>Teléfono</label>
+        <input type="text" id="cajatelefono" class="form-control" /><br />
+        <label>Número camas</label>
+        <input type="text" id="cajacamas" class="form-control" /><br />
+        <button id="botoninsertar" class="btn btn-info">
+          Insertar hospital
+        </button>
       </div>
     </main>
-    <script>
-      src = "js/bootstrap.bundle.js";
-    </script>
+    <script src="js/bootstrap.bundle.js"></script>
     <script src="js/jquery-3.7.1.js"></script>
     <script>
       let url = "https://apicrudhospital.azurewebsites.net/";
       $(document).ready(function () {
-        let request = "webresources/hospitales";
-        $.ajax({
-          url: url + request,
-          method: "GET",
-          success: function (data) {
-            console.log("Éxito en la llamada");
-            var html = "";
-            $.each(data, function (index, hospital) {
-              html += "<tr>";
-              html += "<td>" + hospital.nombre + "</td>";
-              html += "<td>" + hospital.direccion + "</td>";
-              html += "<td>";
-              html +=
-                "<a href='Hospital.html?idhospital=" +
-                hospital.idhospital +
-                "'>Details</a>";
-              html += "</td>";
-              html += "</tr>";
-            });
-            $("#tablahospitales tbody").html(html);
-          },
+        $("#botoninsertar").click(function () {
+          var requestPost = "webresources/hospitales/post";
+          var id = parseInt($("#cajaid").val());
+          var nombre = $("#cajanombre").val();
+          var direccion = $("#cajadireccion").val();
+          var telefono = $("#cajatelefono").val();
+          var camas = parseInt($("#cajacamas").val());
+          //CREAMOS UN NUEVO OBJETO HOSPITAL
+          var hospital = new Object();
+          hospital.idhospital = id;
+          hospital.nombre = nombre;
+          hospital.direccion = direccion;
+          hospital.telefono = telefono;
+          hospital.camas = camas;
+          //CONVERTIMOS ESTE OBJETO A FORMATO JSON
+          var hospitalJSON = JSON.stringify(hospital);
+          console.log(hospitalJSON);
+          $.ajax({
+            url: url + requestPost,
+            type: "POST",
+            contentType: "application/json",
+            data: hospitalJSON,
+            success: function () {
+              //$("#mensaje").text("Hospital insertado");
+              window.location.href = "web28homehospital.html";
+            },
+          });
         });
       });
     </script>
